@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: cex-dex-anomaly
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: CHAT_ID
+        sync: false
+
+  - type: cron
+    name: anomaly-cron
+    env: node
+    schedule: "*/10 * * * *"
+    command: "node scanner.js"
